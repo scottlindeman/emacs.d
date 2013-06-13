@@ -11,9 +11,6 @@
  ;; If there is more than one, they won't work right.
  )
 
-;;Load Rudel
-(load-file "~/.emacs.d/rudel/rudel-loaddefs.el")
-
 ;;General startup preferences
 (delete-selection-mode t)
 (scroll-bar-mode -1)
@@ -28,6 +25,9 @@
 (shell)
 (other-window 1)
 (set-face-attribute 'default nil :height 100) 
+
+;;Load nxhtml
+(load "~/.emacs.d/nxhtml/autostart.el")
 
 ;;Package management
 (require 'package)
