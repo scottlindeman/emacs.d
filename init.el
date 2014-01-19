@@ -48,6 +48,9 @@
 ;; Octave
 (setq auto-mode-alist (cons '("\\.m$" . octave-mode) auto-mode-alist))
 
+;;Load nxhtml
+(load "~/.emacs.d/nxhtml/autostart.el")
+
 ;;Package management
 (require 'package)
 (package-initialize)
