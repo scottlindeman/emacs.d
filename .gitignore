@@ -1,5 +1,7 @@
 #General ignores
 *.~
 
+ac-comphist.dat
+
 #Elpa
 /elpa
