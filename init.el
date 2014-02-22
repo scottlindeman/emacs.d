@@ -120,7 +120,9 @@
 ;;------------------------------------------------------------------------------
 
 ;; Utilities
+
 ;;TODO: Set up ORG
+
 ; Ido
 (ido-mode t)
 (setq ido-enable-flex-matching t
@@ -135,7 +137,7 @@
 
 ; Flyspell
 (setq flyspell-issue-welcome-flag nil)
-(setq-default ispell-program-name "/usr/local/bin/aspell")
+(setq-default ispell-program-name "aspell")
 (setq-default ispell-list-command "list")
 
 ;; Cleanup
@@ -188,13 +190,16 @@
             (ac-js2-mode)))
 
 ; CSS
-(require 'flymake-css)
+;;TODO: CSSLINT
+;(require 'flymake-css)
 (add-hook 'css-mode-hook
           (lambda ()
-            (autopair-mode)
-            (flymake-css-load)))
+            (autopair-mode)))
+            ;(flymake-css-load)))
 
 ; Python
+;;NOTE: Remember to install pyflakes via pip
+(require 'flymake-python-pyflakes)
 (add-hook 'python-mode-hook
           (lambda ()
             (autopair-mode)
