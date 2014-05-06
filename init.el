@@ -26,6 +26,7 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+(delete-selection-mode 1)
 (show-paren-mode t)
 (setq-default indent-tabs-mode nil)
 (setq tab-width 2)
@@ -39,14 +40,12 @@
 (setq column-number-mode t
       inhibit-startup-screen t
       initial-scratch-message nil
-      delete-selection-mode t
       transient-mark-mode t
       blink-cursor-mode t
       x-select-enable-clipboard t
       echo-keystrokes 0.1
       use-dialog-box nil
-      initial-frame-alist (quote ((fullscreen . maximized)))
-      visible-bell t)
+      initial-frame-alist (quote ((fullscreen . maximized))))
 
 ;; Themes
 (load-theme 'wombat)
