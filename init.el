@@ -214,3 +214,9 @@
           (lambda ()
             (autopair-mode)
             (flymake-python-pyflakes-load)))
+
+; R
+;; ESS STUFF
+(add-to-list 'load-path "elpa/ess-20140716.2033/lisp")
+(autoload 'R-mode "ess-site.el" "ESS" t)
+(add-to-list 'auto-mode-alist '("\\.R$" . R-mode))
