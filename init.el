@@ -33,6 +33,8 @@
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
 
+(define-coding-system-alias 'UTF-8 'utf-8)
+
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -42,7 +44,7 @@
 (setq tab-width 2)
 (defvaralias 'c-basic-offset 'tab-width)
 (defvaralias 'cperl-indent-level 'tab-width)
-(setq js2-basic-offset tab-width) 
+(setq js2-basic-offset tab-width)
 (setq css-indent-offset tab-width)
 
 (set-face-attribute 'default nil :height 100)
@@ -57,7 +59,7 @@
       use-dialog-box nil
       initial-frame-alist (quote ((fullscreen . maximized))))
 
-;; Save all tempfiles in $TMPDIR/emacs$UID/                                                    
+;; Save all tempfiles in $TMPDIR/emacs$UID/
 (defconst emacs-tmp-dir (format "%s/%s%s/" "/tmp" "emacs" (user-uid)))
 (setq backup-directory-alist
       `((".*" . ,emacs-tmp-dir)))
@@ -73,7 +75,7 @@
              '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives 
+(add-to-list 'package-archives
              '("tromey" . "http://tromey.com/elpa/"))
 
 (setq package-archive-enable-alist '(("melpa" deft magit)))
@@ -98,7 +100,7 @@
                          magit
                          markdown-mode
                          marmalade
-                         nrepl
+                         ;nrepl
                          o-blog
                          octave-mod
                          org
@@ -165,6 +167,8 @@
   (indent-buffer)
   (untabify-buffer)
   (delete-trailing-whitespace))
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (defun cleanup-region (beg end)
   "Remove tmux artifacts from region."
