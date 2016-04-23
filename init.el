@@ -59,6 +59,10 @@
       use-dialog-box nil
       initial-frame-alist (quote ((fullscreen . maximized))))
 
+;; Font 
+(when (window-system)
+  (set-default-font "Fira Code"))
+
 ;; Save all tempfiles in $TMPDIR/emacs$UID/
 (defconst emacs-tmp-dir (format "%s/%s%s/" "/tmp" "emacs" (user-uid)))
 (setq backup-directory-alist
@@ -100,9 +104,7 @@
                          magit
                          markdown-mode
                          marmalade
-                         ;nrepl
                          o-blog
-                         octave-mod
                          org
                          paredit
                          puppet-mode
