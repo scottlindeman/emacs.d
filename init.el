@@ -3,7 +3,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(js-indent-level 2)
+ '(package-selected-packages
+   (quote
+    (racket-mode protobuf-mode fish-mode less-css-mode zenburn-theme yaml-mode sml-mode scala-mode2 rvm restclient puppet-mode paredit o-blog marmalade markdown-mode magit htmlize haskell-mode haml-mode go-mode gist flymake-python-pyflakes flymake-css deft coffee-mode clojure-test-mode clojure-mode autopair ac-js2 ac-slime))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -35,6 +38,8 @@
 
 (define-coding-system-alias 'UTF-8 'utf-8)
 
+(add-hook 'prog-mode-hook 'subword-mode)
+
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -44,6 +49,7 @@
 (setq tab-width 2)
 (defvaralias 'c-basic-offset 'tab-width)
 (defvaralias 'cperl-indent-level 'tab-width)
+(setq c-basic-offset tab-width)
 (setq js2-basic-offset tab-width)
 (setq css-indent-offset tab-width)
 
@@ -59,9 +65,48 @@
       use-dialog-box nil
       initial-frame-alist (quote ((fullscreen . maximized))))
 
-;; Font 
+;; Font
 (when (window-system)
   (set-default-font "Fira Code"))
+(let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
+               (35 . ".\\(?:###\\|##\\|[#(?[_{]\\)")
+               (36 . ".\\(?:>\\)")
+               (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
+               (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+               (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
+               (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
+               (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+               (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
+               (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+               (48 . ".\\(?:x[a-zA-Z]\\)")
+               (58 . ".\\(?:::\\|[:=]\\)")
+               (59 . ".\\(?:;;\\|;\\)")
+               (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
+               (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+               (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+               (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
+               (91 . ".\\(?:]\\)")
+               (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+               (94 . ".\\(?:=\\)")
+               (119 . ".\\(?:ww\\)")
+               (123 . ".\\(?:-\\)")
+               (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+               (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
+               )
+             ))
+  (dolist (char-regexp alist)
+    (set-char-table-range composition-function-table (car char-regexp)
+                          `([,(cdr char-regexp) 0 font-shape-gstring]))))
+
+(defun insert-lozenge ()
+  "inserts the lozenge character for use with Pollen"
+  ;; enables function through M-x
+  (interactive)
+  ;; insert the proper character
+  (insert (make-char
+           'mule-unicode-2500-33ff 34 42)))
+;; Bind key to M-\ a la DrRacket for lambda
+(global-set-key "\M-\\" 'insert-lozenge)
 
 ;; Save all tempfiles in $TMPDIR/emacs$UID/
 (defconst emacs-tmp-dir (format "%s/%s%s/" "/tmp" "emacs" (user-uid)))
@@ -200,6 +245,9 @@
 
 ; Javascript
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+;(add-hook 'js2-mode-hook
+;	  (lambda ()
+;            (autopair-mode)))
 (add-hook 'js2-mode-hook
 	  (lambda ()
             (autopair-mode)
