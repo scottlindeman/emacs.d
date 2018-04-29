@@ -98,6 +98,7 @@
                          clojure-test-mode
                          coffee-mode
                          deft
+                         fish-mode
                          flymake
                          flymake-css
                          flymake-python-pyflakes
